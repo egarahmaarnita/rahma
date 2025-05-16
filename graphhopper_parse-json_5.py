@@ -7,6 +7,9 @@ loc2 = "Baltimore, Maryland"
 key = "8da30b1d-a3fa-482a-8990-99822e145f0f"
 
 def geocoding (location, key):
+    while location == "":
+        location = input("Enter the location again: ")
+
     geocode_url = "https://graphhopper.com/api/1/geocode?" 
     url = geocode_url + urllib.parse.urlencode({"q":location, "limit": "1", "key":key})
 
@@ -46,10 +49,12 @@ def geocoding (location, key):
 
 while True:
     loc1 = input("Starting Location: ")
+    if loc1 == "quit" or loc1 == "q":
+        break
     orig = geocoding(loc1, key)
-    print(orig)
-
     loc2 = input("Destination: ")
+    if loc2 == "quit" or loc2 == "q":
+        break
     dest = geocoding(loc2, key)
-    print(dest)
-
+    print("=================================================")
+    if orig[0] == 200 and dest[0] == 200:
